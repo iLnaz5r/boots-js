@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  
+  <title>Frontend Mentor | E-commerce product page</title>
+
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+    body{
+      display: flex;
+      flex-direction: column;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    }
+    header{
+      display: flex;
+      justify-content: space-between;
+      padding: 20px;
+    }
+    .head-left{
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+    .head-right{
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    nav p, .cart, img, .addCart, .remove{
+      opacity: 100%;
+      cursor: pointer;
+    }
+    nav p:hover, .cart:hover, img:hover, .addCart:hover, .remove:hover{
+      opacity: 60%;
+    }
+    .main{
+      display: grid;
+      grid-template-columns: repeat(2,1fr);
+      padding: 50px;
+    }
+    .main-right{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+    }
+    .price{
+      display: flex;
+      align-items: center;
+      gap: 30px;
+    }
+    .burger{
+      display: none;
+    }
+    .main-photo{
+      width: 400px;
+      border: none; 
+      border-radius: 5px;
+    }
+    .mini-photo{
+      width: 97px;
+      border: none; 
+      border-radius: 5px;
+    }
+    .addCart{
+      display: flex;
+      align-items: center;
+      width: 360px;
+      padding: 10px;
+      text-align: center;
+      justify-content: center;
+      background-color: hsl(26, 100%, 55%);
+      color: hsl(25, 100%, 94%);
+      border: none;
+      border-radius: 10px;
+    }
+    .minus-plus{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 160px;
+      padding: 10px;
+      border: none;
+      border-radius: 10px;
+      background-color: hsl(25, 100%, 94%);
+      color: hsl(26, 100%, 55%);
+      font-weight: bolder;
+    }
+    .cart-add{
+      display: none;
+    }
+    .cart-add.active{
+      display: flex;
+      flex-direction: column;
+      background-color: white;
+      color: black;
+      box-shadow: 1px 10px 10px 2px rgb(173, 81, 0);
+      position: absolute;
+      right: 0;
+      top: 60px;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      height: auto;
+      width: 300px;
+    }
+    @media screen and (max-width: 450px) {
+      body{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .price{
+        display: flex;
+        flex-direction: column;
+      }
+      .main{
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 6px;
+        align-items: center;
+      }
+      .main-right{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 220px;
+      }
+      .main-photo{
+        width: 200px;
+        border: none; 
+        border-radius: 5px;
+      }
+      .mini-photo{
+        width: 46px;
+        border: none; 
+        border-radius: 5px;
+      }
+      .knopki{
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+        align-items: center;
+        justify-content: center;
+      }
+      .addCart{
+        width: 150px;
+      }
+      .minus-plus{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 150px;
+        padding: 10px;
+        border: none;
+        border-radius: 10px;
+        background-color: hsl(25, 100%, 94%);
+        color: hsl(26, 100%, 55%);
+        font-weight: bolder;
+      }
+      nav p{
+        display: none;
+      }
+      nav p.active{
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        box-shadow: 1px 10px 10px 2px;
+        height: 50vh;
+        width: 200px;
+        z-index: 0;
+        position: absolute;
+        left: 0;
+        top: 20px;
+        opacity: 100%;
+        padding: 30px;
+      }
+      .burger{
+        display: flex;
+        width: 20px;
+        height: 20px;
+        z-index: 2;
+      }
+      header{
+        padding: 10px;
+        justify-content: center;
+      }
+      .ava{
+        display: none;
+      }
+      .cart{
+        width: 20px;
+        height: 20px;
+      }
+      .logo{
+        width: 60px;
+      }
+      .cart-add.active{
+        display: flex;
+        flex-direction: column;
+        background-color: white;
+        color: black;
+        box-shadow: 1px 10px 10px 2px rgb(173, 81, 0);
+        position: absolute;
+        right: 0;
+        top: 60px;
+        padding: 15px;
+        border: none;
+        border-radius: 10px;
+        height: auto;
+        width: 200px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="head-left">
+      <img class="burger" src="images/icon-menu.svg" width="10px" height="10px">
+      <img class="logo" src="images/logo.svg">
+      <nav style="display: flex;align-items: center;gap: 10px;">
+        <p>Collections</p>
+        <p>Men</p>
+        <p>Women</p>
+        <p>About</p>
+        <p>Contact</p>
+      </nav>
+    </div>
+    <div class="head-right">
+      <img class="cart" src="images/icon-cart.svg" width="30px">
+      <img class="ava" src="images/image-avatar.png" width="40px">
+    </div>
+    <div class="cart-add">
+      <p>Your cart</p>
+      <br>
+      <hr>
+      <br>
+      <div class="items" style="display: flex;flex-direction: column;align-items: center;color: orange;">
+        <p>your card is empty</p>
+      </div>
+      <button class="remove" style="border: none;border-radius: 8px;background-color: hsl(0, 0%, 0%);color: hsl(0, 0%, 100%);">remove</button>
+    </div>
+  </header>
+  <br>
+  <hr>
+  <br>
+  <div class="main">
+    <div class="main-left">
+      <img class="main-photo" src="images/image-product-1.jpg">
+      <div>
+        <img class="mini-photo" onclick="changeImg('images/image-product-1.jpg')" src="images/image-product-1-thumbnail.jpg">
+        <img class="mini-photo" onclick="changeImg('images/image-product-2.jpg')" src="images/image-product-2-thumbnail.jpg">
+        <img class="mini-photo" onclick="changeImg('images/image-product-3.jpg')" src="images/image-product-3-thumbnail.jpg">
+        <img class="mini-photo" onclick="changeImg('images/image-product-4.jpg')" src="images/image-product-4-thumbnail.jpg">
+      </div>
+    </div>
+    <div class="main-right">
+      <p class="type" style="text-transform: uppercase;color: gray;">Sneaker Company</p>
+      <h1 class="name">Fall Limited Edition Sneakers</h1>
+      <p style="color: gray;">These low-profile sneakers are your perfect casual wear companion. Featuring a 
+      durable rubber outer sole, they’ll withstand everything the weather can offer.</p>
+      <div class="price">
+        <h2>$125.00</h2>
+        <p style="background-color: black;color: white;font-weight: bolder; padding: 10px;width: 57px;align-items: center;font-size: 12px;border: none;border-radius: 7px;text-align: center;">50%</p>
+      </div>
+      <p style="text-decoration: line-through;opacity: 50%;">$250.00</p>
+      <div class="knopki" style="display: flex; align-items: center;gap: 20px;">
+        <button class="minus-plus">
+          <img class="minus" src="images/icon-minus.svg" width="10px">
+          <p class="num">0</p>
+          <img class="plus" src="images/icon-plus.svg" width="10px">
+        </button>
+        <button class="addCart"><img src="images/icon-cart.svg" width="20px">Add to cart</button>
+      </div>
+    </div>
+  </div>
+<script>
+  document.querySelector('.burger').addEventListener('click', function() {
+    document.querySelector('nav p').classList.toggle('active')
+  });
+  document.querySelector('.cart').addEventListener('click', function() {
+    document.querySelector('.cart-add').classList.toggle('active')
+  });
+  
+
+  function changeImg(photo) {
+    const mainimg  = document.querySelector('.main-photo').src = photo
+  }
+
+
+
+  const numberProduct = document.querySelector('.num')
+  let number = 0
+  document.querySelector('.plus').addEventListener('click', function() {
+    number++
+    numberProduct.textContent = number
+  });
+  document.querySelector('.minus').addEventListener('click', function() {
+    if (number>0){
+      number--
+      numberProduct.textContent  = number
+    }
+  })
+
+
+  document.querySelector('.addCart').addEventListener('click', function() {
+    const cartOption = document.querySelector('.items');
+    document.querySelector('.remove').addEventListener('click', function() {
+      cartOption.remove()
+    })
+
+    cartOption.innerHTML=``;
+    if (number===0){
+      cartOption.innerHTML=`<p>ur cart is empty</p>`
+    } else{
+      const price = 125;
+      const total = price * number;
+      cartOption.innerHTML = `<p>Boots x${number} $${price}</p>
+      <h3>Total price: $${total}</h3>`
+    }
+  })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // document.querySelector('.burger').addEventListener('click', function() {
+  //   document.querySelector('nav p').classList.toggle('active')
+  // })
+  // document.querySelector('.cart').addEventListener('click', function() {
+  //   document.querySelector('.cart-add').classList.toggle('active')
+  // })
+  // function changeFirstImg(changePhoto) {
+  //   const mainImg = document.querySelector('.main-photo').src = changePhoto;
+  // }
+
+  // const numberProduct = document.querySelector('.num')
+  // let number = 0
+  // document.querySelector('.plus').addEventListener('click', function() {
+  //   number++
+  //   numberProduct.textContent = number
+  // })
+  // document.querySelector('.minus').addEventListener('click', function() {
+  //   if(number>0){
+  //     number--
+  //   numberProduct.textContent = number
+  //   }
+  // })
+
+  // document.querySelector('.addCart').addEventListener('click',function() {
+  //   const cartOption = document.querySelector('.items');
+
+  //   cartOption.innerHTML = ``;
+  //   if(number===0){
+  //     cartOption.innerHTML = `<p>ur card is empty</p>`
+  //   } else{
+  //     const price = 125;
+  //     const total = price * number
+  //     cartOption.innerHTML = `
+  //     <div class="items" style="display: flex; flex-direction: column; align-items: start; color: orange;">
+  //       <p>Boots x${number} = $${total}</p>
+  //     </div>
+  //   `;
+      
+  //   }
+  //   document.querySelector('.remove').addEventListener('click', function() {
+  //     cartOption.remove()
+  //   })
+  // })
+</script>
+</body>
+</html>
